@@ -1,25 +1,42 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import SlotRow from "./SlotRow";
+import { state } from './state';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {...state};
+    this.changeHourStatus = this.changeHourStatus.bind(this);
+  }
+
+  changeHourStatus(day, indx){
+    let slotStatus = this.state[day][indx];
+    let arr = [...this.state[day]];
+    arr[indx] = !slotStatus;
+   this.setState({ [day]:[...arr] })
+  }
+
+componentWillMount(){
+ 
 }
 
+  render() {
+    let state = Object.entries(this.state);
+   
+
+   let slotsRow = state.map( item => < SlotRow key={item[0]} id={item[0]} obj={ item[1] } fn={this.changeHourStatus}/>)
+  
+    return (
+      <div className="App">
+        <span>Please select timeslot</span>
+        
+        <div className="container">{ slotsRow }</div>
+
+
+      </div>
+    );
+  }
+}
 export default App;
+
