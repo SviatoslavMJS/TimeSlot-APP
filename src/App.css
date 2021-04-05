@@ -3,24 +3,17 @@
   font-size: 20px
 }
 
-
-
-.App-header {
-  background-color: #485f86;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.title {
+  font-size: 26px;
+  font-weight: bold;
 }
 
 .container {
   margin: 40px auto;
   border: 2px solid white;
-  height: 300px;
-  width: 1000px;
+  height: 350px;
+  width: 1030px;
+  background-color: rgb(197, 191, 166);
 
 }
 
@@ -28,15 +21,42 @@
   cursor: pointer;
 }
 
-.day {
+.aside {
   float: left;
   width: 70px;
   text-indent: 10px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    font-weight: bold;
+  font-weight: bold;
+  font-size: 26px;
+  margin-top: 30px;
+  margin-left: 15px;
 }
 
+.table {
+  float: right;
+  background-color: rgb(105, 173, 139);
+  margin-right: 30px;
+}
+
+.header {
+  float: right;
+  margin-right: 30px;
+}
+
+.header div {
+  
+ display: inline-block;
+ font-size: 24px;
+ width: 30px;
+ height: 30px;
+ border:2px solid black;
+ font-weight: bold;
+}
+
+.button {
+  width: 80px;
+  height: 40px;
+  font-weight: bold;
+  background-color: rgb(197, 191, 166);
+}
 
 

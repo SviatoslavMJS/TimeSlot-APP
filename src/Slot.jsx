@@ -2,33 +2,23 @@ import s from "./Slot.module.css";
 import React from "react";
 
 
-export default class Slot extends React.Component {
-    constructor(props) {
-        super(props)
-    }
-
-    
-
-    render() {
+export default function Slot (props) {
+   
+   
         return (
             <div className={s.slot}
                 onMouseDown={(e) => {
                     e.preventDefault()
-                   
-                    if (e.buttons === 1)  this.props.fn(this.props.day, this.props.indx)
+                    if (e.buttons === 1) props.mouseDown(props.day, props.indx)
                 }}
-
                 onMouseEnter={(e) => {
-                    if (e.buttons === 1) this.props.fn(this.props.day, this.props.indx)
-                }}
-
-                onMouseOver={(e)=> {if (e.buttons === 1) console.log(e) }}
-            >
-                { this.props.busy
+                    if (e.buttons === 1) props.mouseEnter(props.day, props.indx)
+                }}>
+            
+                { props.busy
                     ? <div className={s.red}></div>
                     : <div>{" "}</div>}
 
             </div>
         )
     }
-}
