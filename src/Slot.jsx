@@ -3,20 +3,32 @@ import React from "react";
 
 
 export default class Slot extends React.Component {
-   constructor(props){
-       super(props)
-   }
+    constructor(props) {
+        super(props)
+    }
 
-   handleEnter = () => { this.props.fn(this.props.day, this.props.indx);
-console.log(this.props.day, this.props.indx) }
+    
 
-    render(){
-    return (
-      <div className={s.slot} onClick={this.handleEnter}>
-          { this.props.busy 
-          ? <div className={s.red}>{this.props.indx}</div> 
-          : <div >{this.props.indx}</div> }
+    render() {
+        return (
+            <div className={s.slot}
+                onMouseDown={(e) => {
+                    e.preventDefault()
+                   
+                    if (e.buttons === 1)  this.props.fn(this.props.day, this.props.indx)
+                }}
 
-       </div>
-    )}
-  }
+                onMouseEnter={(e) => {
+                    if (e.buttons === 1) this.props.fn(this.props.day, this.props.indx)
+                }}
+
+                onMouseOver={(e)=> {if (e.buttons === 1) console.log(e) }}
+            >
+                { this.props.busy
+                    ? <div className={s.red}></div>
+                    : <div>{" "}</div>}
+
+            </div>
+        )
+    }
+}

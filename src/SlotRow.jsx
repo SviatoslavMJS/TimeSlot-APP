@@ -1,9 +1,10 @@
 import Slot from "./Slot"
+import s from "./SlotRow.module.css"
 
 function SlotRow (props) {
-    let slots = props.obj.map((hour, indx)=> <Slot key={`${hour}${indx}`} busy={hour} indx={indx} fn={props.fn} day={props.id}/>)
+    let slots = props.obj.map((hour, indx) => <Slot key={`${hour}${indx}`} busy={hour} indx={indx} fn={props.fn} day={props.id}/>)
 return (
-    <div>{slots}</div>
+    <div className={s.container}>{slots}</div>
     
 )
 }

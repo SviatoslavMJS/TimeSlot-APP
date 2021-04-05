@@ -6,7 +6,7 @@
 
 
 .App-header {
-  background-color: #282c34;
+  background-color: #485f86;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,10 +17,25 @@
 }
 
 .container {
-  margin: 100px auto;
+  margin: 40px auto;
   border: 2px solid white;
   height: 300px;
   width: 1000px;
+
+}
+
+.container:hover {
+  cursor: pointer;
+}
+
+.day {
+  float: left;
+  width: 70px;
+  text-indent: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+    font-weight: bold;
 }
 
 
