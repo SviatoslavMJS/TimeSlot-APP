@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import Registration from "./Registration";
 import SlotRow from "./SlotRow";
 import { state } from './state';
 
@@ -12,6 +13,7 @@ class App extends React.Component {
     this.start = 0;
     this.next = 0;
     this.nextDay = "";
+    this.isLogged = false;
 
   }
 
@@ -137,8 +139,10 @@ class App extends React.Component {
 
   saveData = () => {
     const data = {...this.state};
-    console.log(Object.entries(data))
+    return data;
   }
+
+  registration = (name, password) => {}
 
   render() {
 
@@ -159,7 +163,9 @@ class App extends React.Component {
     let header = values[0].map((hour, ind )=> <div key={`${ind}${String(hour)}`}>{ind + 1}</div>)
 
     return (
+     
       <div className="App">
+        <Registration registration={this.registration}/>
         <span className="title">PLEASE SELECT TIMESLOT</span>
         <div className="container">
         <div className="aside">{aside}</div>  
@@ -171,5 +177,6 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;
 
