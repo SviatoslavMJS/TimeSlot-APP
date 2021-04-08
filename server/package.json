@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "fastify authorization",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "fastify",
+    "auth"
+  ],
+  "author": "Sviatoslav Mykytyn <toslav@ukr.net>",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^3.14.2",
+    "fastify-cors": "^5.2.0",
+    "fastify-jwt": "^2.4.0",
+    "fastify-plugin": "^3.0.0",
+    "i": "^0.3.6",
+    "npm": "^7.8.0"
+  }
+}

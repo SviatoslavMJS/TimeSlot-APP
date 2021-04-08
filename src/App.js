@@ -139,7 +139,20 @@ class App extends React.Component {
 
   saveData = () => {
     const data = {...this.state};
-    return data;
+    let email ="ts@ukr.com";
+    let name = "vasyl";
+    let id = "56464"
+
+     fetch('0.0.0.0:8823', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      
+      },
+      body: JSON.stringify({email,name,id})
+    })
+    .then(response => console.log(response))
+    
   }
 
   registration = (name, password) => {}
