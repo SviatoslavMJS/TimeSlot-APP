@@ -1,0 +1,16 @@
+psql postgres
+CREATE ROLE admin WITH LOGIN PASSWORD 'Password_1!';
+ALTER ROLE admin CREATEDB;
+ \q
+psql -d postgres -U admin
+CREATE DATABASE authdb;
+\list
+\c authdb
+
+CREATE TABLE users (id INT GENERATED ALWAYS AS IDENTITY, username VARCHAR(30), password VARCHAR(30), PRIMARY KEY(id));
+CREATE TABLE slots (id INT GENERATED ALWAYS AS IDENTITY, value json, user_id INT, PRIMARY KEY(id), CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(id));
+INSERT INTO users (username, password) VALUES ('user1', 'password1');
+INSERT INTO users (username, password) VALUES ('user2', 'password2');
+
+SELECT * FROM users;
+SELECT * FROM slots;

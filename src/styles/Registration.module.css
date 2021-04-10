@@ -1,0 +1,21 @@
+.registration__header {
+    margin: 20px;
+}
+
+.registration__input {
+    margin: 20px;
+    height: 25px;
+}
+
+.registration__link {
+    display: inline-block;
+    font-size: 14px;
+    text-decoration:underline;
+    color:cyan;
+    margin: 20px;
+    cursor: pointer;
+}
+
+.registration__error {
+    color:coral;
+}

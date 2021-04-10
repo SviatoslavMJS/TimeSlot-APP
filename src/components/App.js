@@ -1,10 +1,11 @@
 import React from "react";
-import './App.css';
-import Registration from "./Registration";
+import '../styles/App.css';
 import SlotRow from "./SlotRow";
-import { state } from './state';
+import { state } from '../state';
+import TimeSlot from "./TimeSlot";
 
 class App extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = { ...state };
@@ -13,9 +14,11 @@ class App extends React.Component {
     this.start = 0;
     this.next = 0;
     this.nextDay = "";
-    this.isLogged = false;
-
+    this.token = "";
+    this.user_id = null;
   }
+
+  get isAuthorized() { return !!this.token; }
 
   onMouseDownHandler = (startDay, start) => {
 
@@ -137,25 +140,82 @@ class App extends React.Component {
     if ((start <= next) && (startD >= nextD)) return this.rightAndUp();
   }
 
-  saveData = () => {
-    const data = {...this.state};
-    let email ="ts@ukr.com";
-    let name = "vasyl";
-    let id = "56464"
+  saveData = async () => {
+    const authorization = this.token ? { 'Authorization': `Bearer ${this.token}` } : {};
 
-     fetch('0.0.0.0:8823', {
+    const response = await (fetch('http://localhost:5000/timeslot', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
-      
+        ...authorization,
       },
-      body: JSON.stringify({email,name,id})
-    })
-    .then(response => console.log(response))
-    
+      body: JSON.stringify({ value: JSON.stringify(this.state) })
+    }));
+
+    alert(response.ok ? 'Saved suceessfully' : 'Something is wrong');
+
   }
 
-  registration = (name, password) => {}
+  getSlots = async () => {
+    try {
+      const authorization = this.token ? { 'Authorization': `Bearer ${this.token}` } : {};
+      const response = await (fetch('http://localhost:5000/timeslot', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          ...authorization,
+        },
+      }));
+
+      const data = await response.json();
+
+      if (!data.length) {
+        return;
+      }
+
+      this.setState(data[0].value);
+
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+  }
+
+  login = async (name, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/auth', {
+        method: "POST",
+        body: JSON.stringify({ username: name, password }),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+      });
+
+      if (!response.ok) { return false; }
+
+      const json = await response.json();
+
+      this.token = json.token;
+
+      await this.getSlots();
+      return true;
+
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+  }
+
+  register = async (name, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/register', {
+        method: "POST",
+        body: JSON.stringify({ username: name, password }),
+        headers: { "Content-type": "application/json; charset=UTF-8" }
+      });
+
+      return response?.ok;
+
+    } catch (error) {
+      alert(JSON.stringify(error));
+    }
+  }
 
   render() {
 
@@ -163,29 +223,27 @@ class App extends React.Component {
     let keys = Object.keys(this.state);
     let values = Object.values(this.state);
 
-    let slotsRow = state.map(item => 
-    < SlotRow
-      key={item[0]}
-      id={item[0]}
-      obj={item[1]}
-      mouseDown={this.onMouseDownHandler}
-      mouseEnter={this.onMouseEnterHandler}
-    />);
+    let slotsRow = state.map(item =>
+      < SlotRow
+        key={item[0]}
+        id={item[0]}
+        obj={item[1]}
+        mouseDown={this.onMouseDownHandler}
+        mouseEnter={this.onMouseEnterHandler}
+      />);
 
     let aside = keys.map(day => <div key={day}>{day}</div>)
-    let header = values[0].map((hour, ind )=> <div key={`${ind}${String(hour)}`}>{ind + 1}</div>)
+    let header = values[0].map((hour, ind) => <div key={`${ind}${String(hour)}`}>{ind + 1}</div>)
 
     return (
-     
       <div className="App">
-        <Registration registration={this.registration}/>
-        <span className="title">PLEASE SELECT TIMESLOT</span>
-        <div className="container">
-        <div className="aside">{aside}</div>  
-        <div className="header">{header}</div>
-        <div className="table">{slotsRow}</div> 
-        </div>
-        <button className="button" onClick={this.saveData}>SAVE</button>
+        <TimeSlot aside={aside}
+          header={header}
+          slotsRow={slotsRow}
+          saveData={this.saveData}
+          login={this.login}
+          register={this.register}
+        />
       </div>
     );
   }

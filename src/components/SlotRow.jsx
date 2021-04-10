@@ -1,5 +1,5 @@
 import Slot from "./Slot"
-import s from "./SlotRow.module.css"
+import s from "../styles/SlotRow.module.css"
 
 function SlotRow (props) {
     let slots = props.obj.map((hour, indx) => <Slot 

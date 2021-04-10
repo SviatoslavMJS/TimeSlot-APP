@@ -1,4 +1,4 @@
-import s from "./Slot.module.css";
+import s from "../styles/Slot.module.css";
 import React from "react";
 
 
